@@ -22,8 +22,8 @@ public class Player : MonoBehaviour {
 		float mouseY = Input.GetAxis ("Mouse Y");
 
 		//movement
-		cController.SimpleMove (transform.forward * inputY * 5f);
-		cController.SimpleMove (transform.right * inputX * 5f);
+		cController.SimpleMove (transform.forward * inputY * 4f);
+		cController.SimpleMove (transform.right * inputX * 4f);
 
 		transform.Rotate (0f, mouseX * 0.5f, 0f);
 		//transform.Rotate (mouseY * 0.2f, 0f, 0f);
