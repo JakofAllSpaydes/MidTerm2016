@@ -13,14 +13,16 @@ public class Player : MonoBehaviour {
 	public GameObject Mat2Pan;
 
 	public bool HoldingMat;
-	public float MatNum;
+	public bool SpaceDown;
+	public bool mat1yes;
+	public bool mat2yes;
 	public int CorrectMat;
 
 	// Use this for initialization
 	void Start () {
 	
 		cController = GetComponent<CharacterController>();
-		HoldingMat = false;
+
 
 
 	}
@@ -31,7 +33,7 @@ public class Player : MonoBehaviour {
 		float inputX = Input.GetAxis ("Horizontal"); // A/D, LeftArrow/RightArrow
 		float inputY = Input.GetAxis ("Vertical"); // W/S, UpArrow/DownArrow
 		float mouseX = Input.GetAxis ("Mouse X"); //Mouse X is the current horizontal mouse speed
-		float mouseY = Input.GetAxis ("Mouse Y");
+		//float mouseY = Input.GetAxis ("Mouse Y");
 
 		//movement
 		cController.SimpleMove (transform.forward * inputY * 4f);
@@ -40,20 +42,30 @@ public class Player : MonoBehaviour {
 		transform.Rotate (0f, mouseX * 0.5f, 0f);
 		//transform.Rotate (mouseY * 0.2f, 0f, 0f);
 
+		if (Input.GetKey (KeyCode.Space)) {
+
+			SpaceDown = true;
+		} else {
+			SpaceDown = false;
+		}
+			
+
 	}
 
-	void OnTriggerEnter(Collider myTrigger) {
+	void OnTriggerStay(Collider myTrigger) {
 		if (myTrigger.gameObject.name == "mat1trigger") {
 			Debug.Log ("mat1triggered");
-
-			if (Input.GetKeyDown (KeyCode.Space) && HoldingMat == false) {
+			Debug.Log ("spacedown is" + SpaceDown);
+			Debug.Log (HoldingMat);
+			if (SpaceDown == true && HoldingMat == false) {
 				Debug.Log ("Key Hit");
 				
-				Mat1.GetComponent<Renderer> ().enabled = false;
-				Mat1Ghost.GetComponent<Renderer> ().enabled = true;
+				Mat1.GetComponent<MeshRenderer> ().enabled = false;
+				Mat1Ghost.GetComponent<MeshRenderer> ().enabled = true;
 
+			
+				mat1yes = true;
 				HoldingMat = true;
-				MatNum = 1;
 			}
 
 		}
@@ -61,13 +73,15 @@ public class Player : MonoBehaviour {
 		if (myTrigger.gameObject.name == "mat2trigger") {
 			Debug.Log ("mat2triggered");
 
-			if (Input.GetKeyDown (KeyCode.Space) && HoldingMat == false) {
-				
-				Mat2.GetComponent<Renderer> ().enabled = false;
-				Mat2Ghost.GetComponent<Renderer> ().enabled = true;
+			if (SpaceDown == true && HoldingMat == false) {
+				Debug.Log ("Key Hit");
 
+				Mat2.GetComponent<MeshRenderer> ().enabled = false;
+				Mat2Ghost.GetComponent<MeshRenderer> ().enabled = true;
+
+
+				mat2yes = true;
 				HoldingMat = true;
-				MatNum = 2;
 			}
 
 		}
@@ -75,20 +89,24 @@ public class Player : MonoBehaviour {
 		if (myTrigger.gameObject.name == "panTrigger") {
 			Debug.Log ("panTriggered");
 
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				if (MatNum == 1) {
+			if (SpaceDown == true && mat1yes == true) {
 					Mat1Pan.GetComponent<Renderer> ().enabled = true;
+					Mat1Ghost.GetComponent<MeshRenderer> ().enabled = false;
 
-					MatNum = MatNum - 1;
+					
+					HoldingMat = false;
+					mat1yes = false;
 				}
 
-				if (MatNum == 2) {
+			if (SpaceDown == true && mat2yes == true) {
 					Mat2Pan.GetComponent<Renderer> ().enabled = true;
+					Mat2Ghost.GetComponent<MeshRenderer> ().enabled = false;
 
-					MatNum = MatNum - 2;
+					HoldingMat = false;
+					mat2yes = false;
+
 				}
-
-			}
+				
 		}
 	}
 }
