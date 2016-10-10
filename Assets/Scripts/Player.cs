@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Player : MonoBehaviour {
 
 	CharacterController cController;
+	public Text myText;
 
 	public GameObject Mat1;
 	public GameObject Mat2;
@@ -11,12 +15,18 @@ public class Player : MonoBehaviour {
 	public GameObject Mat2Ghost;
 	public GameObject Mat1Pan;
 	public GameObject Mat2Pan;
+	public GameObject Mat1Trigger;
+	public GameObject Mat2Trigger;
+	public GameObject GoodDishGhost;
+	public GameObject BadDishGhost;
+
 
 	public bool HoldingMat;
 	public bool SpaceDown;
 	public bool mat1yes;
 	public bool mat2yes;
 	public int CorrectMat;
+	public bool endGame;
 
 	// Use this for initialization
 	void Start () {
@@ -24,12 +34,17 @@ public class Player : MonoBehaviour {
 		cController = GetComponent<CharacterController>();
 
 
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+		//restart scene - lighting becomes broken?
+		if (Input.GetKeyDown (KeyCode.R)){
+			SceneManager.LoadScene(0);
+		}
+
+
 		float inputX = Input.GetAxis ("Horizontal"); // A/D, LeftArrow/RightArrow
 		float inputY = Input.GetAxis ("Vertical"); // W/S, UpArrow/DownArrow
 		float mouseX = Input.GetAxis ("Mouse X"); //Mouse X is the current horizontal mouse speed
@@ -42,6 +57,7 @@ public class Player : MonoBehaviour {
 		transform.Rotate (0f, mouseX * 0.5f, 0f);
 		//transform.Rotate (mouseY * 0.2f, 0f, 0f);
 
+		//if space is pressed, lets trigger know
 		if (Input.GetKey (KeyCode.Space)) {
 
 			SpaceDown = true;
@@ -50,30 +66,51 @@ public class Player : MonoBehaviour {
 		}
 			
 
+		//when the player makes a dish and the game needs to restart
+
+		if (endGame == true) {
+
+			myText.text = "You made a thing. Good job. \n Press [R] to Restart";
+
+		}
+
+
 	}
 
 	void OnTriggerStay(Collider myTrigger) {
+
+		//picking up material 1
 		if (myTrigger.gameObject.name == "mat1trigger") {
 			Debug.Log ("mat1triggered");
 			Debug.Log ("spacedown is" + SpaceDown);
 			Debug.Log (HoldingMat);
+
+			myText.text = "Press [SPACE] to pick up ingredient";
+
+
+
 			if (SpaceDown == true && HoldingMat == false) {
 				Debug.Log ("Key Hit");
 				
 				Mat1.GetComponent<MeshRenderer> ().enabled = false;
 				Mat1Ghost.GetComponent<MeshRenderer> ().enabled = true;
 
-			
 				mat1yes = true;
 				HoldingMat = true;
+				//disables the collider so it can't be picked up again
+				Mat1Trigger.GetComponent<Collider> ().enabled = false;
 			}
 
 		}
 
+		//picking up material 2
 		if (myTrigger.gameObject.name == "mat2trigger") {
 			Debug.Log ("mat2triggered");
 
-			if (SpaceDown == true && HoldingMat == false) {
+			myText.text = "Press [SPACE] to pick up ingredient";
+
+
+			if (SpaceDown == true && HoldingMat == false ) {
 				Debug.Log ("Key Hit");
 
 				Mat2.GetComponent<MeshRenderer> ().enabled = false;
@@ -82,13 +119,20 @@ public class Player : MonoBehaviour {
 
 				mat2yes = true;
 				HoldingMat = true;
+				//disables the collider so it can't be picked up again
+				Mat2Trigger.GetComponent<Collider> ().enabled = false;
 			}
 
 		}
 
+
+		//putting material in pan
 		if (myTrigger.gameObject.name == "panTrigger") {
 			Debug.Log ("panTriggered");
 
+			myText.text = "[SPACE] to add ingredient";
+
+		
 			if (SpaceDown == true && mat1yes == true) {
 					Mat1Pan.GetComponent<Renderer> ().enabled = true;
 					Mat1Ghost.GetComponent<MeshRenderer> ().enabled = false;
@@ -96,6 +140,9 @@ public class Player : MonoBehaviour {
 					
 					HoldingMat = false;
 					mat1yes = false;
+					CorrectMat = CorrectMat + 1;
+
+					
 				}
 
 			if (SpaceDown == true && mat2yes == true) {
@@ -104,9 +151,48 @@ public class Player : MonoBehaviour {
 
 					HoldingMat = false;
 					mat2yes = false;
+					CorrectMat = CorrectMat + 1;
 
 				}
 				
 		}
+
+
+		//button that makes the dish and ends the game
+		if (myTrigger.gameObject.name == "activatorTrigger") {
+			Debug.Log ("ActivatorTriggered");
+
+			myText.text = "Press [SPACE] to finish";
+
+			if (SpaceDown == true && CorrectMat >= 2) {
+				Mat1Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat2Pan.GetComponent<MeshRenderer> ().enabled = false;
+
+				GoodDishGhost.GetComponent<MeshRenderer> ().enabled = true;
+				endGame = true;
+
+			}
+
+			if (SpaceDown == true && CorrectMat == 1) {
+				Mat1Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat2Pan.GetComponent<MeshRenderer> ().enabled = false;
+
+				BadDishGhost.GetComponent<MeshRenderer> ().enabled = true;
+				endGame = true;
+
+			}
+
+
+		}
+	}
+
+	void OnTriggerEnter(Collider myTrigger){
+
+	
+	}
+
+	void OnTriggerExit(Collider myTrigger){
+
+
 	}
 }
