@@ -11,12 +11,28 @@ public class Player : MonoBehaviour {
 
 	public GameObject Mat1;
 	public GameObject Mat2;
+	public GameObject Mat3;
+	public GameObject Mat4;
+	public GameObject Mat5;
+	public GameObject Mat6;
 	public GameObject Mat1Ghost;
 	public GameObject Mat2Ghost;
+	public GameObject Mat3Ghost;
+	public GameObject Mat4Ghost;
+	public GameObject Mat5Ghost;
+	public GameObject Mat6Ghost;
 	public GameObject Mat1Pan;
 	public GameObject Mat2Pan;
+	public GameObject Mat3Pan;
+	public GameObject Mat4Pan;
+	public GameObject Mat5Pan;
+	public GameObject Mat6Pan;
 	public GameObject Mat1Trigger;
 	public GameObject Mat2Trigger;
+	public GameObject Mat3Trigger;
+	public GameObject Mat4Trigger;
+	public GameObject Mat5Trigger;
+	public GameObject Mat6Trigger;
 	public GameObject GoodDishGhost;
 	public GameObject BadDishGhost;
 
