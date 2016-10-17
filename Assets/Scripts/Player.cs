@@ -35,14 +35,24 @@ public class Player : MonoBehaviour {
 	public GameObject Mat6Trigger;
 	public GameObject GoodDishGhost;
 	public GameObject BadDishGhost;
-
+	public GameObject WrongDishGhost;
 
 	public bool HoldingMat;
 	public bool SpaceDown;
 	public bool mat1yes;
 	public bool mat2yes;
+	public bool mat3yes;
+	public bool mat4yes;
+	public bool mat5yes;
+	public bool mat6yes;
+
 	public int CorrectMat;
+	public bool wrongMat;
 	public bool endGame;
+	public bool goodEnd;
+	public bool badEnd;
+	public bool wrongEnd;
+
 
 	// Use this for initialization
 	void Start () {
@@ -84,9 +94,21 @@ public class Player : MonoBehaviour {
 
 		//when the player makes a dish and the game needs to restart
 
-		if (endGame == true) {
+		if (endGame == true && goodEnd == true) {
 
-			myText.text = "You made a thing. Good job. \n Press [R] to Restart";
+			myText.text = "You did it! This curry looks delicious! \n Your parents must be proud. \n Press [R] to Restart";
+
+		}
+
+		if (endGame == true && badEnd == true) {
+
+			myText.text = "I think you need to brush up on your cooking skills. \n Your parents may decide to stay for a while longer... \n Press [R] to Restart";
+
+		}
+
+		if (endGame == true && wrongEnd == true) {
+
+			myText.text = "Is that even edible..? \n You decide to invite them out instead. \n Press [R] to Restart";
 
 		}
 
@@ -141,6 +163,90 @@ public class Player : MonoBehaviour {
 
 		}
 
+		//picking up material 3
+		if (myTrigger.gameObject.name == "mat3trigger") {
+
+			myText.text = "Press [SPACE] to pick up ingredient";
+
+
+			if (SpaceDown == true && HoldingMat == false ) {
+				Debug.Log ("Key Hit");
+
+				Mat3.GetComponent<MeshRenderer> ().enabled = false;
+				Mat3Ghost.GetComponent<MeshRenderer> ().enabled = true;
+
+
+				mat3yes = true;
+				HoldingMat = true;
+				//disables the collider so it can't be picked up again
+				Mat3Trigger.GetComponent<Collider> ().enabled = false;
+			}
+
+		}
+
+		//picking up material 4
+		if (myTrigger.gameObject.name == "mat4trigger") {
+
+			myText.text = "Press [SPACE] to pick up ingredient";
+
+
+			if (SpaceDown == true && HoldingMat == false ) {
+				Debug.Log ("Key Hit");
+
+				Mat4.GetComponent<MeshRenderer> ().enabled = false;
+				Mat4Ghost.GetComponent<MeshRenderer> ().enabled = true;
+
+
+				mat4yes = true;
+				HoldingMat = true;
+				//disables the collider so it can't be picked up again
+				Mat4Trigger.GetComponent<Collider> ().enabled = false;
+			}
+
+		}
+
+		//picking up material 5
+		if (myTrigger.gameObject.name == "mat5trigger") {
+
+			myText.text = "Press [SPACE] to pick up ingredient";
+
+
+			if (SpaceDown == true && HoldingMat == false ) {
+				Debug.Log ("Key Hit");
+
+				Mat5.GetComponent<MeshRenderer> ().enabled = false;
+				Mat5Ghost.GetComponent<MeshRenderer> ().enabled = true;
+
+
+				mat5yes = true;
+				HoldingMat = true;
+				//disables the collider so it can't be picked up again
+				Mat5Trigger.GetComponent<Collider> ().enabled = false;
+			}
+
+		}
+
+		//picking up material 6
+		if (myTrigger.gameObject.name == "mat6trigger") {
+
+			myText.text = "Press [SPACE] to pick up ingredient";
+
+
+			if (SpaceDown == true && HoldingMat == false ) {
+				Debug.Log ("Key Hit");
+
+				Mat6.GetComponent<MeshRenderer> ().enabled = false;
+				Mat6Ghost.GetComponent<MeshRenderer> ().enabled = true;
+
+
+				mat6yes = true;
+				HoldingMat = true;
+				//disables the collider so it can't be picked up again
+				Mat6Trigger.GetComponent<Collider> ().enabled = false;
+			}
+
+		}
+
 
 		//putting material in pan
 		if (myTrigger.gameObject.name == "panTrigger") {
@@ -171,6 +277,48 @@ public class Player : MonoBehaviour {
 
 				}
 				
+			if (SpaceDown == true && mat3yes == true) {
+				Mat3Pan.GetComponent<Renderer> ().enabled = true;
+				Mat3Ghost.GetComponent<MeshRenderer> ().enabled = false;
+
+				HoldingMat = false;
+				mat3yes = false;
+				CorrectMat = CorrectMat + 1;
+
+			}
+
+			if (SpaceDown == true && mat4yes == true) {
+				Mat4Pan.GetComponent<Renderer> ().enabled = true;
+				Mat4Ghost.GetComponent<MeshRenderer> ().enabled = false;
+
+				HoldingMat = false;
+				mat4yes = false;
+				CorrectMat = CorrectMat + 1;
+
+			}
+
+			//5th mat is incorrect and will produce a failed result
+			if (SpaceDown == true && mat5yes == true) {
+				Mat5Pan.GetComponent<Renderer> ().enabled = true;
+				Mat5Ghost.GetComponent<MeshRenderer> ().enabled = false;
+
+				HoldingMat = false;
+				mat5yes = false;
+				wrongMat = true;
+
+			
+
+			}
+
+			if (SpaceDown == true && mat6yes == true) {
+				Mat6Pan.GetComponent<Renderer> ().enabled = true;
+				Mat6Ghost.GetComponent<MeshRenderer> ().enabled = false;
+
+				HoldingMat = false;
+				mat6yes = false;
+				CorrectMat = CorrectMat + 1;
+
+			}
 		}
 
 
@@ -180,22 +328,53 @@ public class Player : MonoBehaviour {
 
 			myText.text = "Press [SPACE] to finish";
 
-			if (SpaceDown == true && CorrectMat >= 2) {
+			//good end - all correct materials added
+			if (SpaceDown == true && CorrectMat == 5 && wrongMat == false) {
+				
 				Mat1Pan.GetComponent<MeshRenderer> ().enabled = false;
 				Mat2Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat3Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat4Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat5Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat6Pan.GetComponent<MeshRenderer> ().enabled = false;
 
 				GoodDishGhost.GetComponent<MeshRenderer> ().enabled = true;
 				endGame = true;
+				goodEnd = true;
 
 			}
 
-			if (SpaceDown == true && CorrectMat == 1) {
+			//bad end - not all materials were added
+			if (SpaceDown == true && CorrectMat <= 4 && CorrectMat >= 1 && wrongMat == false) {
+				
 				Mat1Pan.GetComponent<MeshRenderer> ().enabled = false;
 				Mat2Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat3Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat4Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat5Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat6Pan.GetComponent<MeshRenderer> ().enabled = false;
+
 
 				BadDishGhost.GetComponent<MeshRenderer> ().enabled = true;
 				endGame = true;
+				badEnd = true;
 
+			}
+
+			//wrong end - why did u even add this
+			if (SpaceDown == true && wrongMat == true) {
+
+				Mat1Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat2Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat3Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat4Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat5Pan.GetComponent<MeshRenderer> ().enabled = false;
+				Mat6Pan.GetComponent<MeshRenderer> ().enabled = false;
+
+
+				WrongDishGhost.GetComponent<MeshRenderer> ().enabled = true;
+				endGame = true;
+				wrongEnd = true;
 			}
 
 
