@@ -8,6 +8,8 @@ public class Player : MonoBehaviour {
 
 	CharacterController cController;
 	public Text myText;
+	public AudioClip[] arrayOfSounds; 
+	public AudioSource myAudioSource;
 
 	public GameObject Mat1;
 	public GameObject Mat2;
@@ -34,8 +36,11 @@ public class Player : MonoBehaviour {
 	public GameObject Mat5Trigger;
 	public GameObject Mat6Trigger;
 	public GameObject GoodDishGhost;
+	public GameObject GoodDishGhost2;
 	public GameObject BadDishGhost;
+	public GameObject BadDishGhost2;
 	public GameObject WrongDishGhost;
+	public GameObject WrongDishGhost2;
 
 	public bool HoldingMat;
 	public bool SpaceDown;
@@ -77,8 +82,8 @@ public class Player : MonoBehaviour {
 		//float mouseY = Input.GetAxis ("Mouse Y");
 
 		//movement
-		cController.SimpleMove (transform.forward * inputY * 4f);
-		cController.SimpleMove (transform.right * inputX * 4f);
+		cController.SimpleMove (transform.forward * inputY * 3.5f);
+		cController.SimpleMove (transform.right * inputX * 3.5f);
 
 		transform.Rotate (0f, mouseX * 0.5f, 0f);
 		//transform.Rotate (mouseY * 0.2f, 0f, 0f);
@@ -96,7 +101,7 @@ public class Player : MonoBehaviour {
 
 		if (endGame == true && goodEnd == true) {
 
-			myText.text = "You did it! This curry looks delicious! \n Your parents must be proud. \n Press [R] to Restart";
+			myText.text = "You did it! This curry looks delicious! \n Your family must be proud. \n Press [R] to Restart";
 
 		}
 
@@ -135,6 +140,9 @@ public class Player : MonoBehaviour {
 
 				mat1yes = true;
 				HoldingMat = true;
+
+				myAudioSource.PlayOneShot (arrayOfSounds[0]);
+
 				//disables the collider so it can't be picked up again
 				Mat1Trigger.GetComponent<Collider> ().enabled = false;
 			}
@@ -153,10 +161,12 @@ public class Player : MonoBehaviour {
 
 				Mat2.GetComponent<MeshRenderer> ().enabled = false;
 				Mat2Ghost.GetComponent<MeshRenderer> ().enabled = true;
-
-
+		
 				mat2yes = true;
 				HoldingMat = true;
+
+				myAudioSource.PlayOneShot (arrayOfSounds[0]);
+
 				//disables the collider so it can't be picked up again
 				Mat2Trigger.GetComponent<Collider> ().enabled = false;
 			}
@@ -178,6 +188,9 @@ public class Player : MonoBehaviour {
 
 				mat3yes = true;
 				HoldingMat = true;
+
+				myAudioSource.PlayOneShot (arrayOfSounds[0]);
+
 				//disables the collider so it can't be picked up again
 				Mat3Trigger.GetComponent<Collider> ().enabled = false;
 			}
@@ -199,6 +212,9 @@ public class Player : MonoBehaviour {
 
 				mat4yes = true;
 				HoldingMat = true;
+
+				myAudioSource.PlayOneShot (arrayOfSounds[0]);
+
 				//disables the collider so it can't be picked up again
 				Mat4Trigger.GetComponent<Collider> ().enabled = false;
 			}
@@ -220,6 +236,9 @@ public class Player : MonoBehaviour {
 
 				mat5yes = true;
 				HoldingMat = true;
+
+				myAudioSource.PlayOneShot (arrayOfSounds[0]);
+
 				//disables the collider so it can't be picked up again
 				Mat5Trigger.GetComponent<Collider> ().enabled = false;
 			}
@@ -241,6 +260,9 @@ public class Player : MonoBehaviour {
 
 				mat6yes = true;
 				HoldingMat = true;
+
+				myAudioSource.PlayOneShot (arrayOfSounds[0]);
+
 				//disables the collider so it can't be picked up again
 				Mat6Trigger.GetComponent<Collider> ().enabled = false;
 			}
@@ -259,6 +281,7 @@ public class Player : MonoBehaviour {
 					Mat1Pan.GetComponent<Renderer> ().enabled = true;
 					Mat1Ghost.GetComponent<MeshRenderer> ().enabled = false;
 
+					myAudioSource.PlayOneShot (arrayOfSounds[1]);
 					
 					HoldingMat = false;
 					mat1yes = false;
@@ -271,6 +294,8 @@ public class Player : MonoBehaviour {
 					Mat2Pan.GetComponent<Renderer> ().enabled = true;
 					Mat2Ghost.GetComponent<MeshRenderer> ().enabled = false;
 
+					myAudioSource.PlayOneShot (arrayOfSounds[1]);
+
 					HoldingMat = false;
 					mat2yes = false;
 					CorrectMat = CorrectMat + 1;
@@ -281,6 +306,8 @@ public class Player : MonoBehaviour {
 				Mat3Pan.GetComponent<Renderer> ().enabled = true;
 				Mat3Ghost.GetComponent<MeshRenderer> ().enabled = false;
 
+				myAudioSource.PlayOneShot (arrayOfSounds[1]);
+
 				HoldingMat = false;
 				mat3yes = false;
 				CorrectMat = CorrectMat + 1;
@@ -290,6 +317,8 @@ public class Player : MonoBehaviour {
 			if (SpaceDown == true && mat4yes == true) {
 				Mat4Pan.GetComponent<Renderer> ().enabled = true;
 				Mat4Ghost.GetComponent<MeshRenderer> ().enabled = false;
+
+				myAudioSource.PlayOneShot (arrayOfSounds[1]);
 
 				HoldingMat = false;
 				mat4yes = false;
@@ -302,6 +331,8 @@ public class Player : MonoBehaviour {
 				Mat5Pan.GetComponent<Renderer> ().enabled = true;
 				Mat5Ghost.GetComponent<MeshRenderer> ().enabled = false;
 
+				myAudioSource.PlayOneShot (arrayOfSounds[1]);
+
 				HoldingMat = false;
 				mat5yes = false;
 				wrongMat = true;
@@ -313,6 +344,8 @@ public class Player : MonoBehaviour {
 			if (SpaceDown == true && mat6yes == true) {
 				Mat6Pan.GetComponent<Renderer> ().enabled = true;
 				Mat6Ghost.GetComponent<MeshRenderer> ().enabled = false;
+
+				myAudioSource.PlayOneShot (arrayOfSounds[1]);
 
 				HoldingMat = false;
 				mat6yes = false;
@@ -339,8 +372,11 @@ public class Player : MonoBehaviour {
 				Mat6Pan.GetComponent<MeshRenderer> ().enabled = false;
 
 				GoodDishGhost.GetComponent<MeshRenderer> ().enabled = true;
+				GoodDishGhost2.GetComponent<MeshRenderer> ().enabled = true;
 				endGame = true;
 				goodEnd = true;
+
+				myAudioSource.PlayOneShot (arrayOfSounds[2]);
 
 			}
 
@@ -354,10 +390,12 @@ public class Player : MonoBehaviour {
 				Mat5Pan.GetComponent<MeshRenderer> ().enabled = false;
 				Mat6Pan.GetComponent<MeshRenderer> ().enabled = false;
 
-
 				BadDishGhost.GetComponent<MeshRenderer> ().enabled = true;
+				BadDishGhost2.GetComponent<MeshRenderer> ().enabled = true;
 				endGame = true;
 				badEnd = true;
+
+				myAudioSource.PlayOneShot (arrayOfSounds[3]);
 
 			}
 
@@ -371,10 +409,13 @@ public class Player : MonoBehaviour {
 				Mat5Pan.GetComponent<MeshRenderer> ().enabled = false;
 				Mat6Pan.GetComponent<MeshRenderer> ().enabled = false;
 
-
 				WrongDishGhost.GetComponent<MeshRenderer> ().enabled = true;
+				WrongDishGhost2.GetComponent<MeshRenderer> ().enabled = true;
 				endGame = true;
 				wrongEnd = true;
+
+				myAudioSource.PlayOneShot (arrayOfSounds[4]);
+
 			}
 
 
