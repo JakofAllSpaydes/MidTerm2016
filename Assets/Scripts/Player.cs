@@ -90,7 +90,7 @@ public class Player : MonoBehaviour {
 		cController.SimpleMove (transform.forward * inputY * 3.5f);
 		cController.SimpleMove (transform.right * inputX * 3.5f);
 
-		transform.Rotate (0f, mouseX * 0.5f, 0f);
+		transform.Rotate (0f, mouseX * 10f, 0f);
 		//transform.Rotate (mouseY * 0.2f, 0f, 0f);
 
 		//if space is pressed, lets trigger know
