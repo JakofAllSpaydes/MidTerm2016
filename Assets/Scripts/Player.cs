@@ -356,7 +356,7 @@ public class Player : MonoBehaviour {
 
 
 		//button that makes the dish and ends the game
-		if (myTrigger.gameObject.name == "activatorTrigger") {
+		if (myTrigger.gameObject.name == "activatorTrigger" && endGame == false) {
 			Debug.Log ("ActivatorTriggered");
 
 			myText.text = "Press [SPACE] to finish";
@@ -423,6 +423,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider myTrigger){
+
 
 	
 	}
