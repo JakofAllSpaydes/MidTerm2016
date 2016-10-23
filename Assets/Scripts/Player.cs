@@ -51,6 +51,11 @@ public class Player : MonoBehaviour {
 	public bool mat5yes;
 	public bool mat6yes;
 
+	public bool pickUpText;
+	public bool dropText;
+	public bool finishText;
+	public bool startTextOver;
+
 	public int CorrectMat;
 	public bool wrongMat;
 	public bool endGame;
@@ -118,6 +123,33 @@ public class Player : MonoBehaviour {
 		}
 
 
+		//instructional text
+
+		if (pickUpText == true && dropText == false && finishText == false) {
+
+			myText.text = "Press [SPACE] to pick up ingredient";
+
+		}
+
+		if (pickUpText == false && dropText == true && finishText == false) {
+
+			myText.text = "Press [SPACE] to add ingredient";
+
+		}
+
+		if (pickUpText == false && dropText == false && finishText == true) {
+
+			myText.text = "Press [SPACE] to finish";
+
+		}
+
+		if (pickUpText == false && dropText == false && finishText == false && endGame == false && startTextOver == true) {
+
+			myText.text = "";
+
+		}
+
+
 	}
 
 	void OnTriggerStay(Collider myTrigger) {
@@ -128,7 +160,7 @@ public class Player : MonoBehaviour {
 			Debug.Log ("spacedown is" + SpaceDown);
 			Debug.Log (HoldingMat);
 
-			myText.text = "Press [SPACE] to pick up ingredient";
+			//myText.text = "Press [SPACE] to pick up ingredient";
 
 
 
@@ -153,7 +185,7 @@ public class Player : MonoBehaviour {
 		if (myTrigger.gameObject.name == "mat2trigger") {
 			Debug.Log ("mat2triggered");
 
-			myText.text = "Press [SPACE] to pick up ingredient";
+			//myText.text = "Press [SPACE] to pick up ingredient";
 
 
 			if (SpaceDown == true && HoldingMat == false ) {
@@ -176,7 +208,7 @@ public class Player : MonoBehaviour {
 		//picking up material 3
 		if (myTrigger.gameObject.name == "mat3trigger") {
 
-			myText.text = "Press [SPACE] to pick up ingredient";
+			//myText.text = "Press [SPACE] to pick up ingredient";
 
 
 			if (SpaceDown == true && HoldingMat == false ) {
@@ -200,7 +232,7 @@ public class Player : MonoBehaviour {
 		//picking up material 4
 		if (myTrigger.gameObject.name == "mat4trigger") {
 
-			myText.text = "Press [SPACE] to pick up ingredient";
+			//myText.text = "Press [SPACE] to pick up ingredient";
 
 
 			if (SpaceDown == true && HoldingMat == false ) {
@@ -224,7 +256,7 @@ public class Player : MonoBehaviour {
 		//picking up material 5
 		if (myTrigger.gameObject.name == "mat5trigger") {
 
-			myText.text = "Press [SPACE] to pick up ingredient";
+			//myText.text = "Press [SPACE] to pick up ingredient";
 
 
 			if (SpaceDown == true && HoldingMat == false ) {
@@ -248,7 +280,7 @@ public class Player : MonoBehaviour {
 		//picking up material 6
 		if (myTrigger.gameObject.name == "mat6trigger") {
 
-			myText.text = "Press [SPACE] to pick up ingredient";
+			//myText.text = "Press [SPACE] to pick up ingredient";
 
 
 			if (SpaceDown == true && HoldingMat == false ) {
@@ -274,7 +306,7 @@ public class Player : MonoBehaviour {
 		if (myTrigger.gameObject.name == "panTrigger") {
 			Debug.Log ("panTriggered");
 
-			myText.text = "[SPACE] to add ingredient";
+			//myText.text = "[SPACE] to add ingredient";
 
 		
 			if (SpaceDown == true && mat1yes == true) {
@@ -359,7 +391,7 @@ public class Player : MonoBehaviour {
 		if (myTrigger.gameObject.name == "activatorTrigger" && endGame == false) {
 			Debug.Log ("ActivatorTriggered");
 
-			myText.text = "Press [SPACE] to finish";
+			//myText.text = "Press [SPACE] to finish";
 
 			//good end - all correct materials added
 			if (SpaceDown == true && CorrectMat == 5 && wrongMat == false) {
@@ -424,11 +456,54 @@ public class Player : MonoBehaviour {
 
 	void OnTriggerEnter(Collider myTrigger){
 
-
+		if (myTrigger.gameObject.tag == "materials") {
+			Debug.Log ("cool");
 	
+			pickUpText = true;
+			startTextOver = true;
+
+		}
+
+		if (myTrigger.gameObject.name == "panTrigger") {
+			Debug.Log ("cool");
+
+			dropText = true;
+			startTextOver = true;
+
+		}
+	
+		if (myTrigger.gameObject.name == "activatorTrigger"){
+			Debug.Log ("cool");
+
+			finishText = true;
+			startTextOver = true;
+
+		}
+
 	}
 
 	void OnTriggerExit(Collider myTrigger){
+
+		if (myTrigger.gameObject.tag == "materials") {
+			Debug.Log ("nah");
+
+			pickUpText = false;
+
+		}
+
+		if (myTrigger.gameObject.name == "panTrigger") {
+			Debug.Log ("nah");
+
+			dropText = false;
+
+		}
+
+		if (myTrigger.gameObject.name == "activatorTrigger"){
+			Debug.Log ("nah");
+
+			finishText = false;
+
+		}
 
 
 	}
