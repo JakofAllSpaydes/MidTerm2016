@@ -50,6 +50,12 @@ public class Player : MonoBehaviour {
 	public bool mat4yes;
 	public bool mat5yes;
 	public bool mat6yes;
+	public bool mat1;
+	public bool mat2;
+	public bool mat3;
+	public bool mat4;
+	public bool mat5;
+	public bool mat6;
 
 	public bool pickUpText;
 	public bool dropText;
@@ -170,7 +176,7 @@ public class Player : MonoBehaviour {
 
 
 
-			if (SpaceDown == true && HoldingMat == false) {
+			if (SpaceDown == true && HoldingMat == false && mat1 == false) {
 				Debug.Log ("Key Hit");
 				
 				Mat1.GetComponent<MeshRenderer> ().enabled = false;
@@ -181,8 +187,10 @@ public class Player : MonoBehaviour {
 
 				myAudioSource.PlayOneShot (arrayOfSounds[0]);
 
+				mat1 = true;
+
 				//disables the collider so it can't be picked up again
-				Mat1Trigger.GetComponent<Collider> ().enabled = false;
+				//Mat1Trigger.GetComponent<Collider> ().enabled = false;
 			}
 
 		}
@@ -194,7 +202,7 @@ public class Player : MonoBehaviour {
 			//myText.text = "Press [SPACE] to pick up ingredient";
 
 
-			if (SpaceDown == true && HoldingMat == false ) {
+			if (SpaceDown == true && HoldingMat == false && mat2 == false) {
 				Debug.Log ("Key Hit");
 
 				Mat2.GetComponent<MeshRenderer> ().enabled = false;
@@ -205,8 +213,10 @@ public class Player : MonoBehaviour {
 
 				myAudioSource.PlayOneShot (arrayOfSounds[0]);
 
+				mat2 = true;
+
 				//disables the collider so it can't be picked up again
-				Mat2Trigger.GetComponent<Collider> ().enabled = false;
+				//Mat2Trigger.GetComponent<Collider> ().enabled = false;
 			}
 
 		}
@@ -217,7 +227,7 @@ public class Player : MonoBehaviour {
 			//myText.text = "Press [SPACE] to pick up ingredient";
 
 
-			if (SpaceDown == true && HoldingMat == false ) {
+			if (SpaceDown == true && HoldingMat == false && mat3 == false) {
 				Debug.Log ("Key Hit");
 
 				Mat3.GetComponent<MeshRenderer> ().enabled = false;
@@ -229,8 +239,10 @@ public class Player : MonoBehaviour {
 
 				myAudioSource.PlayOneShot (arrayOfSounds[0]);
 
+				mat3 = true;
+
 				//disables the collider so it can't be picked up again
-				Mat3Trigger.GetComponent<Collider> ().enabled = false;
+				//Mat3Trigger.GetComponent<Collider> ().enabled = false;
 			}
 
 		}
@@ -241,7 +253,7 @@ public class Player : MonoBehaviour {
 			//myText.text = "Press [SPACE] to pick up ingredient";
 
 
-			if (SpaceDown == true && HoldingMat == false ) {
+			if (SpaceDown == true && HoldingMat == false && mat4 == false) {
 				Debug.Log ("Key Hit");
 
 				Mat4.GetComponent<MeshRenderer> ().enabled = false;
@@ -253,8 +265,10 @@ public class Player : MonoBehaviour {
 
 				myAudioSource.PlayOneShot (arrayOfSounds[0]);
 
+				mat4 = true;
+
 				//disables the collider so it can't be picked up again
-				Mat4Trigger.GetComponent<Collider> ().enabled = false;
+				//Mat4Trigger.GetComponent<Collider> ().enabled = false;
 			}
 
 		}
@@ -265,7 +279,7 @@ public class Player : MonoBehaviour {
 			//myText.text = "Press [SPACE] to pick up ingredient";
 
 
-			if (SpaceDown == true && HoldingMat == false ) {
+			if (SpaceDown == true && HoldingMat == false && mat5 == false) {
 				Debug.Log ("Key Hit");
 
 				Mat5.GetComponent<MeshRenderer> ().enabled = false;
@@ -277,8 +291,10 @@ public class Player : MonoBehaviour {
 
 				myAudioSource.PlayOneShot (arrayOfSounds[0]);
 
+				mat5 = true;
+
 				//disables the collider so it can't be picked up again
-				Mat5Trigger.GetComponent<Collider> ().enabled = false;
+				//Mat5Trigger.GetComponent<Collider> ().enabled = false;
 			}
 
 		}
@@ -289,7 +305,7 @@ public class Player : MonoBehaviour {
 			//myText.text = "Press [SPACE] to pick up ingredient";
 
 
-			if (SpaceDown == true && HoldingMat == false ) {
+			if (SpaceDown == true && HoldingMat == false && mat6 == false) {
 				Debug.Log ("Key Hit");
 
 				Mat6.GetComponent<MeshRenderer> ().enabled = false;
@@ -301,8 +317,9 @@ public class Player : MonoBehaviour {
 
 				myAudioSource.PlayOneShot (arrayOfSounds[0]);
 
+				mat6 = true;
 				//disables the collider so it can't be picked up again
-				Mat6Trigger.GetComponent<Collider> ().enabled = false;
+				//Mat6Trigger.GetComponent<Collider> ().enabled = false;
 			}
 
 		}
